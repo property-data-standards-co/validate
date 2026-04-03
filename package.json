@@ -1,0 +1,30 @@
+{
+  "name": "@pdtf/validate",
+  "version": "0.1.0",
+  "description": "PDTF 2.0 Credential Validation Service — verify VCs and issue signed Validation Receipts",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx watch src/server.ts",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.0",
+    "@noble/curves": "^1.9.7",
+    "@pdtf/core": "file:../pdtf-core",
+    "hono": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.2.0"
+  },
+  "author": "Ed Molyneux / Moverly",
+  "license": "Apache-2.0"
+}
