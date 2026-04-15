@@ -7,7 +7,7 @@
 import {
   VcValidator,
   DidResolver,
-  BootstrapTrustResolver,
+  FederationRegistryResolver,
   type TrustResolver,
   type ValidationResult,
   type VerifiableCredential,
@@ -44,7 +44,7 @@ export class ValidatorService {
     this.didResolver = new DidResolver({
       defaultTtlMs: config.didCacheTtlMs,
     });
-    this.trustResolver = new BootstrapTrustResolver({
+    this.trustResolver = new FederationRegistryResolver({
       registryUrl: config.tirRegistryUrl,
       ttlMs: config.tirCacheTtlMs,
     });
