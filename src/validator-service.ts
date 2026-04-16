@@ -7,7 +7,8 @@
 import {
   VcValidator,
   DidResolver,
-  TirClient,
+  FederationRegistryResolver,
+  type TrustResolver,
   type ValidationResult,
   type VerifiableCredential,
 } from '@pdtf/core';
@@ -33,7 +34,7 @@ export interface ValidateResponse {
 export class ValidatorService {
   private readonly validator: VcValidator;
   private readonly didResolver: DidResolver;
-  private readonly tirClient: TirClient;
+  private readonly trustResolver: TrustResolver;
   private readonly receiptIssuer: ReceiptIssuer;
   private readonly config: ServiceConfig;
 
@@ -43,7 +44,7 @@ export class ValidatorService {
     this.didResolver = new DidResolver({
       defaultTtlMs: config.didCacheTtlMs,
     });
-    this.tirClient = new TirClient({
+    this.trustResolver = new FederationRegistryResolver({
       registryUrl: config.tirRegistryUrl,
       ttlMs: config.tirCacheTtlMs,
     });
@@ -56,7 +57,7 @@ export class ValidatorService {
   ): Promise<ValidateResponse> {
     const result = await this.validator.validate(vc, {
       didResolver: this.didResolver,
-      tirClient: this.tirClient,
+      trustResolver: this.trustResolver,
       credentialPaths: options?.credentialPaths,
     });
 
@@ -85,7 +86,7 @@ export class ValidatorService {
       status: 'ok',
       version: SERVICE_VERSION,
       serviceDid: this.config.serviceDid,
-      tirRegistryUrl: this.config.tirRegistryUrl,
+      federationRegistryUrl: this.config.tirRegistryUrl,
     };
   }
 }

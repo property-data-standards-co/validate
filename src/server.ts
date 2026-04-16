@@ -117,7 +117,7 @@ async function main() {
   }, (info) => {
     console.log(`PDTF Validation Service v0.1.0`);
     console.log(`  DID:  ${config.serviceDid}`);
-    console.log(`  TIR:  ${config.tirRegistryUrl}`);
+    console.log(`  Trust Registry: ${config.tirRegistryUrl}`);
     console.log(`  Port: ${info.port}`);
     console.log(`  Ready.`);
   });
