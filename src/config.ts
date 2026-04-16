@@ -16,10 +16,10 @@ export interface ServiceConfig {
   signingKeyId: string;
 
   /** TIR registry URL (git-hosted JSON) */
-  tirRegistryUrl: string;
+  federationRegistryUrl: string;
 
   /** TIR cache TTL in ms */
-  tirCacheTtlMs: number;
+  federationCacheTtlMs: number;
 
   /** DID resolver cache TTL in ms */
   didCacheTtlMs: number;
@@ -37,9 +37,9 @@ export function loadConfig(): ServiceConfig {
     serviceDid: requireEnv('SERVICE_DID'),
     signingKeyHex: requireEnv('SIGNING_KEY_HEX'),
     signingKeyId: process.env.SIGNING_KEY_ID ?? 'validation-service-key',
-    tirRegistryUrl: process.env.TIR_REGISTRY_URL
+    federationRegistryUrl: process.env.FEDERATION_REGISTRY_URL
       ?? 'https://raw.githubusercontent.com/property-data-standards-co/tir/main/registry.json',
-    tirCacheTtlMs: parseInt(process.env.TIR_CACHE_TTL_MS ?? '3600000', 10),
+    federationCacheTtlMs: parseInt(process.env.FEDERATION_CACHE_TTL_MS ?? '3600000', 10),
     didCacheTtlMs: parseInt(process.env.DID_CACHE_TTL_MS ?? '3600000', 10),
     maxBodySize: parseInt(process.env.MAX_BODY_SIZE ?? '1048576', 10), // 1MB
     logLevel: (process.env.LOG_LEVEL ?? 'info') as ServiceConfig['logLevel'],

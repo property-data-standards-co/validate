@@ -21,7 +21,7 @@ Response:
     "stages": {
       "structure": { "passed": true, "errors": [] },
       "signature": { "passed": true, "errors": [] },
-      "tir": { "passed": true, "errors": [] },
+      "trust": { "passed": true, "errors": [] },
       "status": { "passed": true, "errors": [] }
     },
     "warnings": []
@@ -46,7 +46,7 @@ Response:
 |-------|---------------|
 | **Structure** | W3C VC 2.0 envelope, required fields, context URIs |
 | **Signature** | `DataIntegrityProof` (eddsa-jcs-2022), issuer/proof DID binding |
-| **TIR** | Issuer authorisation in the Trusted Issuer Registry |
+| **Trust** | Issuer authorisation in the Trusted Issuer Registry |
 | **Status** | Revocation/suspension via Bitstring Status List |
 
 All stages run regardless of earlier failures — you always get the complete picture.
@@ -57,17 +57,17 @@ Every response includes a signed receipt: a Verifiable Credential issued by the 
 
 - **Result** — `valid` or `invalid`
 - **Per-stage results** — which checks passed, failed, or were skipped
-- **Evidence chain** — TIR commit hash, status list fetch time, service version
+- **Evidence chain** — Federation registry hash, status list fetch time, service version
 - **Cryptographic proof** — the receipt is signed by the service's Ed25519 key
 
-Relying parties can verify the receipt independently — the service's DID is in the TIR, and every piece of evidence references public data.
+Relying parties can verify the receipt independently — the service's DID is in the federation trust registry, and every piece of evidence references public data.
 
 ## Trust Model
 
 The validation service processes only public data:
 
 1. **Proof verification** — deterministic Ed25519 math
-2. **TIR lookup** — publicly auditable git-hosted registry
+2. **Trust lookup** — publicly auditable git-hosted registry
 3. **Status list check** — public URLs per W3C spec
 4. **Structure validation** — against published schemas
 
@@ -89,7 +89,7 @@ Validate a Verifiable Credential.
 
 Or send the VC directly as the body (auto-detected).
 
-`credentialPaths` is optional — when provided, the TIR check verifies the issuer is authorised for those specific entity:path combinations.
+`credentialPaths` is optional — when provided, the Trust check verifies the issuer is authorised for those specific entity:path combinations.
 
 **Response:** `200 OK` with `{ valid, result, receipt }`.
 
@@ -129,7 +129,7 @@ validate.propdata.org.uk
 ├── POST /v1/verify          Stateless validation endpoint
 │   ├── Stage 1: Structure   Local check
 │   ├── Stage 2: Signature   Local crypto (Ed25519)
-│   ├── Stage 3: TIR         Cached fetch from git
+│   ├── Stage 3: Trust         OpenID Federation Trust Marks
 │   ├── Stage 4: Status      Fetch status list URL
 │   └── Receipt              Sign result as VC
 ├── GET  /v1/health          Health check

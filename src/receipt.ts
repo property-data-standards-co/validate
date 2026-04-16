@@ -54,7 +54,7 @@ class StaticKeyProvider implements KeyProvider {
 
 export interface ReceiptEvidence {
   /** TIR git commit hash used for the check */
-  tirCommit?: string;
+  federationRegistryHash?: string;
   /** When the status list was fetched */
   statusListFetched?: string;
   /** SHA-256 hash of the resolved DID document */

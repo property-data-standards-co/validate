@@ -45,8 +45,8 @@ export class ValidatorService {
       defaultTtlMs: config.didCacheTtlMs,
     });
     this.trustResolver = new FederationRegistryResolver({
-      registryUrl: config.tirRegistryUrl,
-      ttlMs: config.tirCacheTtlMs,
+      registryUrl: config.federationRegistryUrl,
+      ttlMs: config.federationCacheTtlMs,
     });
     this.receiptIssuer = createReceiptIssuer(config);
   }
@@ -86,7 +86,7 @@ export class ValidatorService {
       status: 'ok',
       version: SERVICE_VERSION,
       serviceDid: this.config.serviceDid,
-      federationRegistryUrl: this.config.tirRegistryUrl,
+      federationRegistryUrl: this.config.federationRegistryUrl,
     };
   }
 }
